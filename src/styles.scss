@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+$primary: #328bda;
+
+@import "bootstrap/scss/bootstrap";
+@import url("../node_modules/bootstrap-icons/font/bootstrap-icons.min.css");
+
+.side-navbar {
+    width: 240px;
+    height: 100%;
+    position: fixed;
+    margin-left: -300px;
+    transition: 0.5s;
+  }
+  .nav-link:active,
+  .nav-link:focus,
+  .nav-link:hover {
+    background-color: rgba(81, 81, 81, 0.698);
+  }
+  .my-container {
+    transition: 0.4s;
+  }
+  .active-nav {
+    margin-left: 0;
+  }
+  /* for main section */
+  .active-cont {
+    margin-left: 240px;
+  }
+  #menu-btn {
+    background-color: #100901;
+    color: #fff;
+    margin-left: -62px;
+  }

@@ -1,0 +1,11 @@
+<app-sidebar></app-sidebar>
+
+<div
+  class="my-container position-relative d-flex flex-column w-100"
+  [class]="(sidebarOpened$ | async) ? 'active-cont' : ''">
+  <app-header></app-header>
+  <div class="container-fluid">
+    <h1>Dashboard</h1>
+    <i class="bi bi-zoom-out"></i>
+  </div>
+</div>
