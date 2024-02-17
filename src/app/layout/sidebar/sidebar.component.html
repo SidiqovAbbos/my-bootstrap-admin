@@ -11,18 +11,52 @@
   </a>
   <hr />
   <ul class="nav nav-pills flex-column mb-auto">
-    @for (item of menuItems$ | async; track item.title) {
+    @for (item of menuItems$ | async; track item) {
       <li class="nav-item mt-1">
-        <a href="#" class="nav-link" [class]="item.active ? 'active': 'text-white'" aria-current="page">
-          <i [class]="item.icon"></i>
-          <span class="m-2" >{{item.title}}</span>
+        <a
+          class="nav-link text-white d-flex justify-content-between w-100"
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          aria-current="page">
+          <span>
+            <i [class]="item.icon"></i>
+            <span class="m-2">{{ item.title }}</span>
+          </span>
+          @if (item.subItems?.length) {
+            <div class="collapser" (click)="onCollapseMenuItem(item)">
+              <i
+                class="bi"
+                [class]="
+                  item.collapsed ? 'bi-chevron-right' : 'bi-chevron-down'
+                "></i>
+            </div>
+          }
         </a>
+
+        <ul
+          class="nav nav-pills flex-column mb-auto overflow-hidden"
+          style="margin-left: 1rem !important"
+          [animation]="false"
+          [ngbCollapse]="item.collapsed ?? false">
+          @for (sub of item.subItems; track sub) {
+            <li class="nav-item mt-1">
+              <a
+                class="nav-link text-white"
+                [routerLink]="sub.route"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                aria-current="page">
+                <i [class]="sub.icon"></i>
+                <span class="m-2">{{ sub.title }}</span>
+              </a>
+            </li>
+          }
+        </ul>
       </li>
     }
   </ul>
   <hr />
-
-
 
   <div class="dropdown" ngbDropdown>
     <a
@@ -40,13 +74,15 @@
       <strong>mdo</strong>
     </a>
     <ul
-      class="dropdown-menu dropdown-menu-dark text-small shadow"
+      class="dropdown-menu dropdown-menu-dark text-small shadow hover"
       aria-labelledby="dropdownUser1"
       ngbDropdownMenu>
-      <li ngbDropdownItem><a class="dropdown-item" href="#">New project...</a></li>
-      <li ngbDropdownItem><a class="dropdown-item" href="#">Settings</a></li>
-      <li ngbDropdownItem><hr class="dropdown-divider" /></li>
-      <li ngbDropdownItem><a class="dropdown-item" href="#">Sign out</a></li>
+      <li>
+        <a class="dropdown-item" href="#">New project...</a>
+      </li>
+      <li><a class="dropdown-item" href="#">Settings</a></li>
+      <li><hr class="dropdown-divider" /></li>
+      <li><a class="dropdown-item" href="#">Sign out</a></li>
     </ul>
   </div>
 </div>
