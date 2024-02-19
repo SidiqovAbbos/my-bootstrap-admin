@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { MenuItem } from './model/menu-item';
+import { Observable, combineLatest, map } from 'rxjs';
 import { LayoutState } from './state/layout.state';
 import { ToggleScreenMode, ToggleSidebar } from './state/toggle.actiom';
 
@@ -17,20 +16,26 @@ export class LayoutComponent implements OnInit {
   @Select(LayoutState.isMobileDevice)
   isMobileDevice$!: Observable<boolean>;
 
-  @Select(LayoutState.getMenuItems)
-  menuItems$!: Observable<MenuItem[]>;
+  sidebarAndNotMobile$: Observable<boolean>;
 
   constructor(
     private elementRef: ElementRef,
     private store: Store
-  ) {}
+  ) {
+    this.sidebarAndNotMobile$ = combineLatest([
+      this.sidebarOpened$,
+      this.isMobileDevice$,
+    ]).pipe(
+      map(([sidebarOpened, isMobileDevice]) => sidebarOpened && !isMobileDevice)
+    );
+  }
 
   ngOnInit(): void {
     const screenWidth = this.elementRef.nativeElement.offsetWidth;
-    this.store.dispatch(new ToggleScreenMode(screenWidth < 820));
-  }
-
-  onOverlayClick() {
-    this.store.dispatch(new ToggleSidebar());
+    const isMobileDevice = screenWidth < 820;
+    if (isMobileDevice) {
+      this.store.dispatch(new ToggleSidebar());
+    }
+    this.store.dispatch(new ToggleScreenMode(isMobileDevice));
   }
 }

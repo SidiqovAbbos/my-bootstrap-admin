@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
-    NgbCollapseModule,
-    NgbDropdownModule,
+  NgbCollapseModule,
+  NgbDropdownModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { NgxsModule } from '@ngxs/store';
 import { HeaderComponent } from './header/header.component';

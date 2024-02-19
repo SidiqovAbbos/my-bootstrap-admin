@@ -1,6 +1,12 @@
+@if (overlay && (opened$ | async)) {
+  <div
+    class="w-100 bg-dark-subtle opacity-50 h-100 position-fixed"
+    (click)="onOverlayClick()"></div>
+}
+
 <div
   class="side-navbar d-flex flex-column flex-shrink-0 p-3 text-white bg-dark vh-100"
-  [class]="(opened$ | async) ? 'active-nav' : ''"
+  [class.active-nav]="opened$ | async"
   id="sidebar">
   <a
     href="/"

@@ -1,14 +1,17 @@
 :host {
-    z-index: 100;
+  z-index: 100;
+  display: flex;
 }
 
 .collapser {
-    width: 24px;
-    text-align: center;
-    height: 24px;
-    border-radius: 5px;
-    cursor: pointer;
-    &:hover {
-        background-color: #0000007a;
-    }
+  width: 24px;
+  text-align: center;
+  height: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #0000007a;
+  }
 }
+
+

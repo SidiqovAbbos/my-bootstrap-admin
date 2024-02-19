@@ -1,26 +1,10 @@
-@if (isMobileDevice$ | async) {
-  <div
-    class="z-1"
-    [class]="(sidebarOpened$ | async) ? 'mobile-sidebar' : ''"
-    (click)="onOverlayClick()">
-    <app-sidebar></app-sidebar>
-  </div>
+<app-sidebar [overlay]="(isMobileDevice$ | async) ?? false"></app-sidebar>
 
-  <div class="my-container position-relative d-flex flex-column w-100">
-    <app-header></app-header>
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
-    </div>
+<div
+  class="my-container position-relative d-flex flex-column w-100"
+  [class.active-cont]="sidebarAndNotMobile$ | async">
+  <app-header></app-header>
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
   </div>
-} @else {
-  <app-sidebar></app-sidebar>
-
-  <div
-    class="my-container position-relative d-flex flex-column w-100"
-    [class]="(sidebarOpened$ | async) ? 'active-cont' : ''">
-    <app-header></app-header>
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-}
+</div>
